@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Zephyr installer.
-# Installs packages, backs up old configs, links new ones.
+# Installs packages, backs up old configs, links new ones, installs scripts.
 # Run as a regular user, not root.
 
 set -euo pipefail
@@ -86,6 +86,7 @@ check_env() {
     if [[ -z "${WAYLAND_DISPLAY:-}" ]] && [[ "${XDG_SESSION_TYPE:-}" != "wayland" ]]; then
         die "Wayland session required (WAYLAND_DISPLAY and XDG_SESSION_TYPE both unset). Log into niri and retry."
     fi
+
     command -v niri >/dev/null || die "niri not found in PATH. Install niri first."
     command -v apt  >/dev/null || die "apt not found. This installer is for Debian."
 
@@ -130,7 +131,7 @@ install_packages() {
     info "Installing packages from packages/debian.list"
 
     local pkgs
-        pkgs=$(grep -vE '^\s*(#|$)' "$PACKAGE_LIST" | tr '\n' ' ')
+    pkgs=$(grep -vE '^\s*(#|$)' "$PACKAGE_LIST" | tr '\n' ' ')
 
     if (( DRY_RUN )); then
         printf "${c_yellow}[dry-run]${c_reset} sudo apt install %s\n" "$pkgs"
@@ -143,6 +144,7 @@ install_packages() {
 }
 
 # --- symlinks ---
+
 link_configs() {
     info "Linking configs into $CONFIG_DST"
 
@@ -178,6 +180,20 @@ link_configs() {
     done
 }
 
+# --- scripts ---
+
+install_bin() {
+    info "Installing Zephyr scripts to ~/.local/bin"
+    local bin_dir="$HOME/.local/bin"
+    run mkdir -p "$bin_dir"
+    
+    for script in "$REPO_DIR"/bin/*; do
+        run cp "$script" "$bin_dir/"
+        run chmod +x "$bin_dir/$(basename "$script")"
+    done
+    ok "scripts installed (ensure ~/.local/bin is in your PATH)"
+}
+
 # --- main ---
 
 main() {
@@ -190,6 +206,12 @@ main() {
     backup_configs
     install_packages
     link_configs
+    install_bin
+
+    if (( ! DRY_RUN )); then
+        info "Applying default theme (catppuccin-mocha)"
+        "$HOME/.local/bin/zephyr-theme" catppuccin-mocha || warn "Failed to apply theme. Run 'zephyr-theme' manually."
+    fi
 
     printf "\n${c_green}${c_bold}Done.${c_reset}\n"
     printf "Backup (if any): %s\n" "$BACKUP_DIR"
