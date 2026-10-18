@@ -108,7 +108,7 @@ output "HDMI-A-2" {
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist store"
 spawn-at-startup "swayidle" "-w" "timeout" "300" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors" "timeout" "600" "gtklock" "before-sleep" "gtklock"
 spawn-at-startup "mako"
-spawn-at-startup "waybar"
+spawn-at-startup "dbus-run-session" "--" "waybar"
 spawn-at-startup "zephyr-wallpaper"
 spawn-at-startup "zephyr-wob-daemon"
 // spawn-at-startup "swayosd-server"
