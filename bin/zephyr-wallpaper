@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Zephyr wallpaper setter
+set -euo pipefail
+
+WALL_DIR="$HOME/projects/zephyr/assets/wallpapers"
+DEFAULT_COLOR="#1e1e2e"
+
+if [ ! -d "$WALL_DIR" ] || [ -z "$(ls -A "$WALL_DIR" 2>/dev/null)" ]; then
+    echo "No wallpapers found. Using default color."
+    pkill swaybg 2>/dev/null || true
+    swaybg -c "$DEFAULT_COLOR" > /dev/null 2>&1 &
+    exit 0
+fi
+
+# Pick a random wallpaper
+WALLPAPER=$(find "$WALL_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | shuf -n 1)
+
+echo "Setting wallpaper: $(basename "$WALLPAPER")"
+pkill swaybg 2>/dev/null || true
+swaybg -i "$WALLPAPER" -m fill > /dev/null 2>&1 &
