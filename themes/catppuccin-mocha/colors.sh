@@ -1,0 +1,11 @@
+# Catppuccin Mocha
+BG="#1e1e2e"
+FG="#cdd6f4"
+FG_DIM="#a6adc8"
+SURFACE0="#313244"
+SURFACE1="#45475a"
+ACCENT="#89b4fa"
+GREEN="#a6e3a1"
+YELLOW="#f9e2af"
+RED="#f38ba8"
+MAUVE="#cba6f7"

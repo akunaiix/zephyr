@@ -1,0 +1,11 @@
+# Tokyo Night
+BG="#1a1b26"
+FG="#c0caf5"
+FG_DIM="#a9b1d6"
+SURFACE0="#24283b"
+SURFACE1="#414868"
+ACCENT="#7aa2f7"
+GREEN="#9ece6a"
+YELLOW="#e0af68"
+RED="#f7768e"
+MAUVE="#bb9af7"

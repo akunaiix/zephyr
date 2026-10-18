@@ -1,0 +1,11 @@
+# Gruvbox Dark (warm)
+BG="#282828"
+FG="#ebdbb2"
+FG_DIM="#a89984"
+SURFACE0="#3c3836"
+SURFACE1="#504945"
+ACCENT="#fabd2f"
+GREEN="#b8bb26"
+YELLOW="#fabd2f"
+RED="#fb4934"
+MAUVE="#d3869b"
