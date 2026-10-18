@@ -83,10 +83,9 @@ check_env() {
         die "Do not run as root. The installer will ask for sudo when needed."
     fi
 
-    if [[ "${XDG_SESSION_TYPE:-}" != "wayland" ]]; then
-        die "Wayland session required (XDG_SESSION_TYPE=$XDG_SESSION_TYPE). Log into niri and retry."
+    if [[ -z "${WAYLAND_DISPLAY:-}" ]] && [[ "${XDG_SESSION_TYPE:-}" != "wayland" ]]; then
+        die "Wayland session required (WAYLAND_DISPLAY and XDG_SESSION_TYPE both unset). Log into niri and retry."
     fi
-
     command -v niri >/dev/null || die "niri not found in PATH. Install niri first."
     command -v apt  >/dev/null || die "apt not found. This installer is for Debian."
 
@@ -111,7 +110,7 @@ backup_configs() {
         fi
         found=1
         run mkdir -p "$BACKUP_DIR"
-        run cp -a "$CONFIG_DST/$d" "$BACKUP_DIR/"
+        run mv "$CONFIG_DST/$d" "$BACKUP_DIR/$d"
         ok "$d -> $BACKUP_DIR/$d"
     done
 
@@ -144,7 +143,6 @@ install_packages() {
 }
 
 # --- symlinks ---
-
 link_configs() {
     info "Linking configs into $CONFIG_DST"
 
@@ -165,7 +163,9 @@ link_configs() {
         fi
 
         if [[ -e "$dst" && ! -L "$dst" ]]; then
-            die "$dst exists and is not a symlink. Backup is in $BACKUP_DIR - resolve it manually."
+            if (( ! DRY_RUN )); then
+                die "$dst exists and is not a symlink. Check $BACKUP_DIR."
+            fi
         fi
 
         run rm -f "$dst"
