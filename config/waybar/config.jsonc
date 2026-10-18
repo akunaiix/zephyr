@@ -1,0 +1,96 @@
+// Zephyr — waybar config.
+// Layout: workspaces | window | tray cpu mem temp bat net vol clock.
+// Style lives in style.css, colors are injected into colors.css by zephyr-theme.
+
+{
+    "layer": "top",
+    "position": "top",
+    "height": 36,
+    "spacing": 6,
+
+    "modules-left": [
+        "niri/workspaces"
+    ],
+    "modules-center": [
+        "niri/window"
+    ],
+    "modules-right": [
+        "tray",
+        "cpu",
+        "memory",
+        "temperature",
+        "battery",
+        "network",
+        "pulseaudio",
+        "clock"
+    ],
+
+    // --- Left ---
+
+    "niri/workspaces": {
+        "format": "{index}",
+        "active-only": false
+    },
+
+    // --- Center ---
+
+    "niri/window": {
+        "format": "{title}",
+        "max-length": 80,
+        "separate-outputs": true
+    },
+
+    // --- Right ---
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8
+    },
+
+    "cpu": {
+        "format": "cpu {usage}%",
+        "interval": 2
+    },
+
+    "memory": {
+        "format": "mem {percentage}%",
+        "interval": 5
+    },
+
+    "temperature": {
+        "format": "{temperatureC}°C",
+        "critical-threshold": 80
+    },
+
+    "battery": {
+        "format": "bat {capacity}%",
+        "format-charging": "bat {capacity}% +",
+        "format-plugged": "bat {capacity}% ⚡",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "interval": 30
+    },
+
+    "network": {
+        "format-wifi": "wifi {essid}",
+        "format-ethernet": "eth",
+        "format-disconnected": "off",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "interval": 5
+    },
+
+    "pulseaudio": {
+        "format": "vol {volume}%",
+        "format-muted": "mute",
+        "on-click": "swayosd-client --output-volume mute-toggle",
+        "scroll-step": 2
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%d.%m %H:%M}",
+        "tooltip-format": "{:%A, %d %B %Y}"
+    }
+}
