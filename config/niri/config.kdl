@@ -1,0 +1,131 @@
+// Zephyr — niri config.
+// Sections: input, layout, binds, outputs, autostart, window rules.
+// Edit this file to change keybinds, layout, outputs.
+
+// --- INPUT ---
+
+input {
+    keyboard {
+        xkb {
+            layout "us,ru"
+            options "grp:alt_shift_toggle"
+        }
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
+// --- LAYOUT ---
+
+layout {
+    gaps 16
+    center-focused-column "never"
+}
+
+// --- BINDS ---
+
+binds {
+    // Windows
+    Mod+T { spawn "foot"; }
+    Mod+Q { close-window; }
+    Mod+Shift+E { quit; }
+    Mod+Shift+P { power-off-monitors; }
+
+    // Focus
+    Mod+Left { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up { focus-window-up; }
+    Mod+Down { focus-window-down; }
+    Mod+H { focus-column-left; }
+    Mod+L { focus-column-right; }
+    Mod+K { focus-window-up; }
+    Mod+J { focus-window-down; }
+
+    // Move windows
+    Mod+Shift+Left { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up { move-window-up; }
+    Mod+Shift+Down { move-window-down; }
+
+    // Workspaces
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+Shift+1 { move-window-to-workspace 1; }
+    Mod+Shift+2 { move-window-to-workspace 2; }
+    Mod+Shift+3 { move-window-to-workspace 3; }
+    Mod+Shift+4 { move-window-to-workspace 4; }
+    Mod+Shift+5 { move-window-to-workspace 5; }
+
+    // Zephyr: launch
+    Mod+D { spawn "fuzzel"; }
+    Mod+V { spawn "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"; }
+
+    // Zephyr: session
+    Mod+Escape { spawn "gtklock"; }
+
+    // Zephyr: screenshots
+    Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | swappy -f -"; }
+    Mod+Print { spawn "sh" "-c" "grim - | wl-copy"; }
+
+    // Zephyr: media keys
+    XF86AudioRaiseVolume { spawn "swayosd-client" "--output-volume" "raise"; }
+    XF86AudioLowerVolume { spawn "swayosd-client" "--output-volume" "lower"; }
+    XF86AudioMute { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
+    XF86MonBrightnessUp { spawn "swayosd-client" "--brightness" "raise"; }
+    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "lower"; }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
+}
+
+// --- OUTPUTS ---
+
+// Laptop panel off, external monitor as primary at 120 Hz.
+// If you move to another machine, edit the output names here.
+output "eDP-1" {
+    off
+}
+
+output "HDMI-A-2" {
+    focus-at-startup
+    position x=0 y=0
+    mode "1920x1080@120.000"
+}
+
+// --- AUTOSTART ---
+
+spawn-at-startup "waybar"
+spawn-at-startup "mako"
+spawn-at-startup "swaybg" "-c" "#1e1e2e"
+spawn-at-startup "swayosd-server"
+spawn-at-startup "wl-paste" "--watch" "cliphist store"
+
+// --- WINDOW RULES ---
+
+// Terminal windows: no border, no focus ring.
+window-rule {
+    match app-id="foot"
+    draw-border-with-background false
+    focus-ring {
+        active-color "#00000000"
+        inactive-color "#00000000"
+    }
+}
+
+window-rule {
+    match app-id="Alacritty"
+    draw-border-with-background false
+    focus-ring {
+        active-color "#00000000"
+        inactive-color "#00000000"
+    }
+}
+
+// --- MISC ---
+
+prefer-no-csd
