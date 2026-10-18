@@ -4,6 +4,11 @@
 
 // --- INPUT ---
 
+environment {
+    PATH "/home/akunaiix/projects/zephyr/bin:/usr/local/bin:/usr/bin:/bin"
+}
+
+
 input {
     keyboard {
         xkb {
@@ -73,11 +78,11 @@ binds {
     Mod+Print { spawn "sh" "-c" "grim - | wl-copy"; }
 
     // Zephyr: media keys
-    XF86AudioRaiseVolume { spawn "swayosd-client" "--output-volume" "raise"; }
-    XF86AudioLowerVolume { spawn "swayosd-client" "--output-volume" "lower"; }
-    XF86AudioMute { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
-    XF86MonBrightnessUp { spawn "swayosd-client" "--brightness" "raise"; }
-    XF86MonBrightnessDown { spawn "swayosd-client" "--brightness" "lower"; }
+    XF86AudioRaiseVolume { spawn-sh "zephyr-osd-volume up"; }
+    XF86AudioLowerVolume { spawn-sh "zephyr-osd-volume down"; }
+    XF86AudioMute { spawn-sh "zephyr-osd-volume mute"; }
+    XF86MonBrightnessUp { spawn-sh "zephyr-osd-brightness up"; }
+    XF86MonBrightnessDown { spawn-sh "zephyr-osd-brightness down"; }
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioNext { spawn "playerctl" "next"; }
     XF86AudioPrev { spawn "playerctl" "previous"; }
@@ -99,10 +104,11 @@ output "HDMI-A-2" {
 
 // --- AUTOSTART ---
 
-spawn-at-startup "waybar"
+spawn-at-startup "dbus-run-session" "--" "waybar"
 spawn-at-startup "mako"
 spawn-at-startup "swaybg" "-c" "#1e1e2e"
-spawn-at-startup "swayosd-server"
+spawn-at-startup "zephyr-wob-daemon"
+// spawn-at-startup "swayosd-server"
 spawn-at-startup "wl-paste" "--watch" "cliphist store"
 
 // --- WINDOW RULES ---

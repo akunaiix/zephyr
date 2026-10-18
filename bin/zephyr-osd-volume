@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Zephyr OSD: volume. Usage: zephyr-osd-volume up|down|mute
+set -euo pipefail
+
+case "${1:-}" in
+    up)   pactl set-sink-volume @DEFAULT_SINK@ +5% ;;
+    down) pactl set-sink-volume @DEFAULT_SINK@ -5% ;;
+    mute) pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
+    *)    echo "usage: $0 up|down|mute" >&2; exit 1 ;;
+esac
+
+vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1)
+muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+
+if [[ "$muted" == "yes" ]]; then
+    echo "0" > "${WOBSOCK:-/tmp/wob.sock}"
+else
+    echo "$vol" > "${WOBSOCK:-/tmp/wob.sock}"
+fi

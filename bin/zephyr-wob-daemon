@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Zephyr wob daemon: FIFO + wob, kills old instance first.
+set -euo pipefail
+
+pkill -x wob 2>/dev/null || true
+rm -f /tmp/wob.sock
+mkfifo /tmp/wob.sock
+exec tail -f /tmp/wob.sock | wob

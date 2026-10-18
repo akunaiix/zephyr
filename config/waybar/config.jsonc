@@ -1,96 +1,73 @@
-// Zephyr — waybar config.
-// Layout: workspaces | window | tray cpu mem temp bat net vol clock.
-// Style lives in style.css, colors are injected into colors.css by zephyr-theme.
-
 {
+    "output": "HDMI-A-2",
     "layer": "top",
     "position": "top",
-    "height": 36,
-    "spacing": 6,
+    "height": 34,
+    "spacing": 4,
 
-    "modules-left": [
-        "niri/workspaces"
-    ],
-    "modules-center": [
-        "niri/window"
-    ],
-    "modules-right": [
-        "tray",
-        "cpu",
-        "memory",
-        "temperature",
-        "battery",
-        "network",
-        "pulseaudio",
-        "clock"
-    ],
-
-    // --- Left ---
+    "modules-left": ["niri/workspaces", "niri/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray"],
 
     "niri/workspaces": {
         "format": "{index}",
         "active-only": false
     },
 
-    // --- Center ---
-
     "niri/window": {
         "format": "{title}",
-        "max-length": 80,
+        "max-length": 50,
         "separate-outputs": true
-    },
-
-    // --- Right ---
-
-    "tray": {
-        "icon-size": 18,
-        "spacing": 8
-    },
-
-    "cpu": {
-        "format": "cpu {usage}%",
-        "interval": 2
-    },
-
-    "memory": {
-        "format": "mem {percentage}%",
-        "interval": 5
-    },
-
-    "temperature": {
-        "format": "{temperatureC}°C",
-        "critical-threshold": 80
-    },
-
-    "battery": {
-        "format": "bat {capacity}%",
-        "format-charging": "bat {capacity}% +",
-        "format-plugged": "bat {capacity}% ⚡",
-        "states": {
-            "warning": 20,
-            "critical": 10
-        },
-        "interval": 30
-    },
-
-    "network": {
-        "format-wifi": "wifi {essid}",
-        "format-ethernet": "eth",
-        "format-disconnected": "off",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "interval": 5
-    },
-
-    "pulseaudio": {
-        "format": "vol {volume}%",
-        "format-muted": "mute",
-        "on-click": "swayosd-client --output-volume mute-toggle",
-        "scroll-step": 2
     },
 
     "clock": {
         "format": "{:%H:%M}",
-        "format-alt": "{:%d.%m %H:%M}",
-        "tooltip-format": "{:%A, %d %B %Y}"
+        "format-alt": "{:%d.%m.%Y}",
+        "tooltip-format": "{:%A, %B %d, %Y}"
+    },
+
+    "pulseaudio": {
+        "format": " {volume}%",
+        "format-muted": " muted",
+        "on-click": "zephyr-osd-volume mute",
+        "scroll-step": 2
+    },
+
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": " eth",
+        "format-disconnected": " offline",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "interval": 5
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2
+    },
+
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 5
+    },
+
+    "temperature": {
+        "format": " {temperatureC}°C",
+        "critical-threshold": 80
+    },
+
+    "battery": {
+        "format": " {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        }
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
     }
 }

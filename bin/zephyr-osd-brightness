@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Zephyr OSD: brightness. Usage: zephyr-osd-brightness up|down
+set -euo pipefail
+
+case "${1:-}" in
+    up)   brightnessctl set 5%+ ;;
+    down) brightnessctl set 5%- ;;
+    *)    echo "usage: $0 up|down" >&2; exit 1 ;;
+esac
+
+brightnessctl -m | awk -F, '{print $4}' | tr -d '%' > /tmp/wob.sock
