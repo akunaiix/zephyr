@@ -1,0 +1,45 @@
+# Zephyr — apt-пакеты для Debian trixie
+#
+# Формат: один пакет на строку.
+# Строки, начинающиеся с #, и пустые строки игнорируются.
+# install.sh передаёт всё это напрямую в `apt install`.
+#
+# niri в список НЕ включён: он обычно уже стоит, install.sh только
+# проверяет его наличие через `command -v niri`.
+# swww в trixie нет — используем swaybg.
+
+# --- Терминал ---
+foot
+
+# --- Оболочка ---
+waybar
+fuzzel
+mako-notifier
+gtklock
+swayosd
+swayidle
+swaybg
+
+# --- Инструменты Wayland ---
+grim
+slurp
+swappy
+cliphist
+wl-clipboard
+brightnessctl
+playerctl
+libnotify-bin
+upower
+network-manager
+pulseaudio-utils
+
+# --- Портал и авторизация ---
+xdg-desktop-portal-gtk
+lxpolkit
+pkexec
+
+# --- Шрифты ---
+fonts-jetbrains-mono
+fonts-inter
+fonts-font-awesome
+fonts-noto-color-emoji
