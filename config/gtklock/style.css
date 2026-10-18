@@ -1,0 +1,74 @@
+/* Zephyr — gtklock style.
+   Catppuccin Mocha colors are hardcoded here on purpose:
+   gtklock doesn't support @import, so zephyr-theme rewrites
+   this file from a template when you switch themes. */
+
+* {
+    font-family: "JetBrains Mono", "Inter", monospace;
+    font-size: 14px;
+}
+
+window,
+#window {
+    background-color: #1e1e2e;
+    border: none;
+    border-radius: 0;
+}
+
+#clock-label {
+    font-size: 72px;
+    font-weight: 700;
+    color: #cdd6f4;
+}
+
+#date-label {
+    font-size: 18px;
+    color: #a6adc8;
+}
+
+#user-label {
+    color: #a6adc8;
+}
+
+#input {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#input-field {
+    color: #cdd6f4;
+}
+
+#input-label {
+    font-size: 16px;
+    color: #cdd6f4;
+}
+
+#error-label {
+    color: #f38ba8;
+}
+
+#unlock-button,
+#power-button,
+#reboot-button,
+#suspend-button,
+#logout-button,
+#hibernate-button {
+    background: #313244;
+    color: #cdd6f4;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 4px;
+    border: 1px solid transparent;
+}
+
+#unlock-button:hover,
+#power-button:hover,
+#reboot-button:hover,
+#suspend-button:hover,
+#logout-button:hover,
+#hibernate-button:hover {
+    background: #45475a;
+    border-color: #89b4fa;
+}
