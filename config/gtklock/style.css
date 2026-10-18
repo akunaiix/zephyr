@@ -10,7 +10,7 @@
 
 window,
 #window {
-    background-color: #1e1e2e;
+    background-color: #ebdbb2;
     border: none;
     border-radius: 0;
 }
@@ -18,16 +18,16 @@ window,
 #clock-label {
     font-size: 72px;
     font-weight: 700;
-    color: #cdd6f4;
+    color: #ebdbb2;
 }
 
 #date-label {
     font-size: 18px;
-    color: #a6adc8;
+    color: #ebdbb2;
 }
 
 #user-label {
-    color: #a6adc8;
+    color: #ebdbb2;
 }
 
 #input {
@@ -37,16 +37,16 @@ window,
 }
 
 #input-field {
-    color: #cdd6f4;
+    color: #ebdbb2;
 }
 
 #input-label {
     font-size: 16px;
-    color: #cdd6f4;
+    color: #ebdbb2;
 }
 
 #error-label {
-    color: #f38ba8;
+    color: #ebdbb2;
 }
 
 #unlock-button,
@@ -56,7 +56,7 @@ window,
 #logout-button,
 #hibernate-button {
     background: #313244;
-    color: #cdd6f4;
+    color: #ebdbb2;
     border-radius: 8px;
     padding: 8px 16px;
     margin: 4px;
@@ -70,5 +70,5 @@ window,
 #logout-button:hover,
 #hibernate-button:hover {
     background: #45475a;
-    border-color: #89b4fa;
+    border-color: #ebdbb2;
 }

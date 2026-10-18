@@ -76,3 +76,16 @@ window#waybar {
 #network.disconnected {
     color: @red;
 }
+/* Media Player */
+#mpris {
+    padding: 0 12px;
+    margin: 4px 2px;
+    background: @surface0;
+    border-radius: 6px;
+    color: @accent;
+    font-weight: bold;
+}
+#mpris.paused {
+    color: @fg_dim;
+    font-weight: normal;
+}

@@ -1,0 +1,4 @@
+[Default]
+save_dir=$HOME/Pictures/Screenshots
+save_filename=shot_%Y-%m-%d_%H-%M-%S.png
+copy_command=wl-copy

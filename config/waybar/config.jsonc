@@ -6,7 +6,7 @@
     "spacing": 4,
 
     "modules-left": ["niri/workspaces", "niri/window"],
-    "modules-center": ["clock"],
+    "modules-center": ["mpris", "clock"],
     "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray"],
 
     "niri/workspaces": {
@@ -18,6 +18,22 @@
         "format": "{title}",
         "max-length": 50,
         "separate-outputs": true
+    },
+
+    "mpris": {
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵",
+            "firefox": "🌎",
+            "spotify": "🎧"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "max-length": 40,
+        "tooltip-format": "{player} - {title}\n{artist}\n{album}"
     },
 
     "clock": {
