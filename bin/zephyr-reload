@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Zephyr reload: restarts graphical components.
+set -euo pipefail
+
+echo "Reloading Zephyr components..."
+
+# 1. Niri config
+if command -v niri >/dev/null; then
+    niri msg action load-config-file >/dev/null 2>&1 || true
+fi
+
+# 2. Waybar
+pkill -x waybar 2>/dev/null || true
+sleep 0.5
+# Always use dbus-run-session for Waybar to prevent segfaults
+dbus-run-session -- waybar > /tmp/waybar-reload.log 2>&1 &
+
+# 3. Mako
+pkill -x mako 2>/dev/null || true
+sleep 0.2
+dbus-run-session -- mako > /tmp/mako-reload.log 2>&1 &
+
+# 4. Wob daemon
+if command -v zephyr-wob-daemon >/dev/null; then
+    zephyr-wob-daemon > /tmp/wob-reload.log 2>&1 &
+fi
+
+echo "Done. Check /tmp/*-reload.log if something is missing."
